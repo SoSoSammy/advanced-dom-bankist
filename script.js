@@ -6,6 +6,10 @@ const btnCloseModal = document.querySelector(".btn--close-modal");
 const btnsOpenModal = document.querySelectorAll(".btn--show-modal");
 const btnScrollTo = document.querySelector(".btn--scroll-to");
 const section1 = document.querySelector("#section--1");
+const nav = document.querySelector(".nav");
+const tabs = document.querySelectorAll(".operations__tab");
+const tabsContainer = document.querySelector(".operations__tab-container");
+const tabsContent = document.querySelectorAll(".operations__content");
 
 ///////////////////////////////////////
 // Modal window
@@ -80,10 +84,6 @@ document.querySelector(".nav__links").addEventListener("click", function (e) {
 ///////////////////////////////////////
 // Tabbed component
 
-const tabs = document.querySelectorAll(".operations__tab");
-const tabsContainer = document.querySelector(".operations__tab-container");
-const tabsContent = document.querySelectorAll(".operations__content");
-
 tabsContainer.addEventListener("click", function (e) {
   // Matching strategy
   const clicked = e.target.closest(".operations__tab");
@@ -103,6 +103,28 @@ tabsContainer.addEventListener("click", function (e) {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add("operations__content--active");
 });
+
+///////////////////////////////////////
+// Menu fade animation
+
+const handleHover = function (e) {
+  // We don't need to use closest here because there are no child elements in the link element
+  if (e.target.classList.contains("nav__link")) {
+    const link = e.target;
+    // Helps make JavaScript more robust when you are broad in your selections
+    const siblings = link.closest(".nav").querySelectorAll(".nav__link");
+    const logo = link.closest(".nav").querySelector("img");
+
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this; // the this keyword is now our opacity
+    });
+    logo.style.opacity = this;
+  }
+};
+
+// Passing "argument" into handler
+nav.addEventListener("mouseover", handleHover.bind(0.5)); // Just a function with the this keyword set. JavaScript will treat the same way as if any other function was passed in. It will pass in the event object when it calls it
+nav.addEventListener("mouseout", handleHover.bind(1));
 
 ///////////////////////////////////////
 ///////////////////////////////////////

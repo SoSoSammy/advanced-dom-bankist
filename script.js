@@ -30,89 +30,142 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
-// Selecting elements
-console.log(document.documentElement);
-console.log(document.head);
-console.log(document.body);
+///////////////////////////////////////
+// Practice
 
-const header = document.querySelector(".header");
-const allSections = document.querySelectorAll(".section");
-console.log(allSections);
+// // Selecting elements
+// console.log(document.documentElement);
+// console.log(document.head);
+// console.log(document.body);
 
-document.getElementById("section--1");
-const allButtons = document.getElementsByTagName("button");
-console.log(allButtons);
+// const header = document.querySelector(".header");
+// const allSections = document.querySelectorAll(".section");
+// console.log(allSections);
 
-document.getElementsByClassName("btn");
+// document.getElementById("section--1");
+// const allButtons = document.getElementsByTagName("button");
+// console.log(allButtons);
 
-// Creating and inserting elements
-const message = document.createElement("div");
-message.classList.add("cookie-message");
-// message.textContent = "We use cookies for improved functionality and analytics.";
-message.innerHTML = `We use cookies for improved functionality and analytics. 
-<button class="btn btn--close-cookie">Got it!</button>`;
+// document.getElementsByClassName("btn");
 
-// header.prepend(message);
-header.append(message);
-// header.append(message.cloneNode(true));
+// // Creating and inserting elements
+// const message = document.createElement("div");
+// message.classList.add("cookie-message");
+// // message.textContent = "We use cookies for improved functionality and analytics.";
+// message.innerHTML = `We use cookies for improved functionality and analytics.
+// <button class="btn btn--close-cookie">Got it!</button>`;
 
-// header.before(message);
-// header.after(message);
+// // header.prepend(message);
+// header.append(message);
+// // header.append(message.cloneNode(true));
 
-// Delete elements
-document
-  .querySelector(".btn--close-cookie")
-  .addEventListener("click", function () {
-    // NEW WAY
-    // message.remove();
-    // OLD WAY
-    message.parentElement.removeChild(message);
-  });
+// // header.before(message);
+// // header.after(message);
 
-// Styles
-message.style.backgroundColor = "#37383d";
-message.style.width = "120%";
+// // Delete elements
+// document
+//   .querySelector(".btn--close-cookie")
+//   .addEventListener("click", function () {
+//     // NEW WAY
+//     // message.remove();
+//     // OLD WAY
+//     message.parentElement.removeChild(message);
+//   });
 
-console.log(message.style.color); // only works for inline styles
-console.log(message.style.backgroundColor);
+// // Styles
+// message.style.backgroundColor = "#37383d";
+// message.style.width = "120%";
 
-console.log(getComputedStyle(message).color); // works for all styles
-console.log(getComputedStyle(message).height);
+// console.log(message.style.color); // only works for inline styles
+// console.log(message.style.backgroundColor);
 
-message.style.height =
-  Number.parseFloat(getComputedStyle(message).height, 10) + 30 + "px";
+// console.log(getComputedStyle(message).color); // works for all styles
+// console.log(getComputedStyle(message).height);
 
-// Used to access and change CSS custom properties (CSS variables)
-document.documentElement.style.setProperty("--color-primary", "orangered"); // Can use for all properties
+// message.style.height =
+//   Number.parseFloat(getComputedStyle(message).height, 10) + 30 + "px";
 
-// Attributes
-const logo = document.querySelector(".nav__logo");
-console.log(logo.alt);
-console.log(logo.className);
+// // Used to access and change CSS custom properties (CSS variables)
+// document.documentElement.style.setProperty("--color-primary", "orangered"); // Can use for all properties
 
-logo.alt = "Beautiful minimalist logo";
+// // Attributes
+// const logo = document.querySelector(".nav__logo");
+// console.log(logo.alt);
+// console.log(logo.className);
 
-// Non-standard
-console.log(logo.designer);
-console.log(logo.getAttribute("designer"));
-logo.setAttribute("company", "Bankist");
+// logo.alt = "Beautiful minimalist logo";
 
-// Absolute path
-console.log(logo.src);
-// Relative path
-console.log(logo.getAttribute("src"));
+// // Non-standard
+// console.log(logo.designer);
+// console.log(logo.getAttribute("designer"));
+// logo.setAttribute("company", "Bankist");
 
-const link = document.querySelector(".nav__link--btn");
-console.log(link.href);
-console.log(link.getAttribute("href"));
+// // Absolute path
+// console.log(logo.src);
+// // Relative path
+// console.log(logo.getAttribute("src"));
 
-// Data attributes
-console.log(logo.dataset.versionNumber); // use camelCase while in HTML is dash-separated
+// const link = document.querySelector(".nav__link--btn");
+// console.log(link.href);
+// console.log(link.getAttribute("href"));
 
-// Classes
-logo.classList.add("c", "j");
-logo.classList.remove("c", "j");
-logo.classList.toggle("c");
-logo.classList.contains("c"); // not includes
-// Don't use because it will overwrite all existing classes
-// logo.className = "jonas";
+// // Data attributes
+// console.log(logo.dataset.versionNumber); // use camelCase while in HTML is dash-separated
+
+// // Classes
+// logo.classList.add("c", "j");
+// logo.classList.remove("c", "j");
+// logo.classList.toggle("c");
+// logo.classList.contains("c"); // not includes
+// // Don't use because it will overwrite all existing classes
+// // logo.className = "jonas";
+
+const btnScrollTo = document.querySelector(".btn--scroll-to");
+const section1 = document.querySelector("#section--1");
+
+btnScrollTo.addEventListener("click", function (e) {
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords);
+
+  // The boundingClientRect of the button that we clicked
+  // console.log(e.target.getBoundingClientRect()); // boundingClientRect relative to visible viewport
+
+  console.log("Current scroll (X/Y)", window.pageXOffset, window.pageYOffset);
+
+  console.log(
+    "Height/width of viewport",
+    document.documentElement.clientHeight, // not counting scroll bars, just content
+    document.documentElement.clientWidth
+  );
+
+  // Scrollling
+  // window.scrollTo(
+  //   s1coords.left + window.pageXOffSet,
+  //   s1coords.top + window.pageYOffset
+  // ); // .top always relative to viewport, not the document
+
+  // Old school way
+  // window.scrollTo({
+  //   left: s1coords.left + window.pageXOffSet,
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: "smooth",
+  // });
+
+  // Modern way
+  section1.scrollIntoView({ behavior: "smooth" });
+});
+
+const h1 = document.querySelector("h1");
+
+// To listen to an event only once
+const alertH1 = function (e) {
+  alert("addEventListener: Great! You are reading the heading :D");
+};
+
+h1.addEventListener("mouseenter", alertH1);
+
+setTimeout(() => h1.removeEventListener("mouseenter", alertH1), 3000);
+
+// h1.onmouseenter = function (e) {
+//   alert("onmouseenter: Great! You are reading the heading :D");
+// };

@@ -174,6 +174,7 @@ const stickyNav = function (entries) {
 };
 
 const headerObserver = new IntersectionObserver(stickyNav, {
+  // root: AKA target element
   root: null, // entire viewport
   threshold: 0,
   rootMargin: `-${navHeight}px`, // a box of a specified height that will be applied outside our target element

@@ -1,12 +1,14 @@
 "use strict";
 
-///////////////////////////////////////
-// Modal window
-
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 const btnCloseModal = document.querySelector(".btn--close-modal");
 const btnsOpenModal = document.querySelectorAll(".btn--show-modal");
+const btnScrollTo = document.querySelector(".btn--scroll-to");
+const section1 = document.querySelector("#section--1");
+
+///////////////////////////////////////
+// Modal window
 
 const openModal = function (e) {
   e.preventDefault();
@@ -31,7 +33,56 @@ document.addEventListener("keydown", function (e) {
 });
 
 ///////////////////////////////////////
-// Practice
+// Button scrolling
+
+btnScrollTo.addEventListener("click", function (e) {
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords);
+
+  console.log("Current scroll (X/Y)", window.pageXOffset, window.pageYOffset);
+
+  console.log(
+    "Height/width of viewport",
+    document.documentElement.clientHeight, // not counting scroll bars, just content
+    document.documentElement.clientWidth
+  );
+
+  // Modern way
+  section1.scrollIntoView({ behavior: "smooth" });
+});
+
+///////////////////////////////////////
+// Page navigation
+
+// document.querySelectorAll(".nav__link").forEach(function (el) {
+//   el.addEventListener("click", function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute("href"); // relative URL
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+//   });
+// });
+
+// Event delegation
+// 1. Add event listener to common parent element
+// 2. Determine what element originated the event
+
+document.querySelector(".nav__links").addEventListener("click", function (e) {
+  e.preventDefault();
+
+  // Matching strategy
+  if (e.target.classList.contains("nav__link")) {
+    const id = e.target.getAttribute("href"); // relative URL
+    document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+  }
+});
+
+///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////
+
+///////////////////////////////////////
+// Selecting, Creating, and Deleting Elements
 
 // // Selecting elements
 // console.log(document.documentElement);
@@ -71,6 +122,9 @@ document.addEventListener("keydown", function (e) {
 //     // OLD WAY
 //     message.parentElement.removeChild(message);
 //   });
+
+///////////////////////////////////////
+// Styles, Attributes, and Classes
 
 // // Styles
 // message.style.backgroundColor = "#37383d";
@@ -120,52 +174,87 @@ document.addEventListener("keydown", function (e) {
 // // Don't use because it will overwrite all existing classes
 // // logo.className = "jonas";
 
-const btnScrollTo = document.querySelector(".btn--scroll-to");
-const section1 = document.querySelector("#section--1");
+///////////////////////////////////////
+// Implementing Smooth Scrolling
 
-btnScrollTo.addEventListener("click", function (e) {
-  const s1coords = section1.getBoundingClientRect();
-  console.log(s1coords);
+// const btnScrollTo = document.querySelector(".btn--scroll-to");
+// const section1 = document.querySelector("#section--1");
 
-  // The boundingClientRect of the button that we clicked
-  // console.log(e.target.getBoundingClientRect()); // boundingClientRect relative to visible viewport
+// btnScrollTo.addEventListener("click", function (e) {
+//   const s1coords = section1.getBoundingClientRect();
+//   console.log(s1coords);
 
-  console.log("Current scroll (X/Y)", window.pageXOffset, window.pageYOffset);
+//   // The boundingClientRect of the button that we clicked
+//   // console.log(e.target.getBoundingClientRect()); // boundingClientRect relative to visible viewport
 
-  console.log(
-    "Height/width of viewport",
-    document.documentElement.clientHeight, // not counting scroll bars, just content
-    document.documentElement.clientWidth
-  );
+//   console.log("Current scroll (X/Y)", window.pageXOffset, window.pageYOffset);
 
-  // Scrollling
-  // window.scrollTo(
-  //   s1coords.left + window.pageXOffSet,
-  //   s1coords.top + window.pageYOffset
-  // ); // .top always relative to viewport, not the document
+//   console.log(
+//     "Height/width of viewport",
+//     document.documentElement.clientHeight, // not counting scroll bars, just content
+//     document.documentElement.clientWidth
+//   );
 
-  // Old school way
-  // window.scrollTo({
-  //   left: s1coords.left + window.pageXOffSet,
-  //   top: s1coords.top + window.pageYOffset,
-  //   behavior: "smooth",
-  // });
+//   // Scrollling
+//   // window.scrollTo(
+//   //   s1coords.left + window.pageXOffSet,
+//   //   s1coords.top + window.pageYOffset
+//   // ); // .top always relative to viewport, not the document
 
-  // Modern way
-  section1.scrollIntoView({ behavior: "smooth" });
-});
+//   // Old school way
+//   // window.scrollTo({
+//   //   left: s1coords.left + window.pageXOffSet,
+//   //   top: s1coords.top + window.pageYOffset,
+//   //   behavior: "smooth",
+//   // });
 
-const h1 = document.querySelector("h1");
+//   // Modern way
+//   section1.scrollIntoView({ behavior: "smooth" });
+// });
 
-// To listen to an event only once
-const alertH1 = function (e) {
-  alert("addEventListener: Great! You are reading the heading :D");
-};
+///////////////////////////////////////
+// Types of Events and Event Handlers
 
-h1.addEventListener("mouseenter", alertH1);
+// const h1 = document.querySelector("h1");
 
-setTimeout(() => h1.removeEventListener("mouseenter", alertH1), 3000);
+// // To listen to an event only once
+// const alertH1 = function (e) {
+//   alert("addEventListener: Great! You are reading the heading :D");
+// };
+
+// h1.addEventListener("mouseenter", alertH1);
+
+// setTimeout(() => h1.removeEventListener("mouseenter", alertH1), 3000);
 
 // h1.onmouseenter = function (e) {
 //   alert("onmouseenter: Great! You are reading the heading :D");
 // };
+
+///////////////////////////////////////
+// Event Propagation in Practice
+
+// rgb(255,255,255)
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max - min + 1) + min);
+// const randomColor = () =>
+//   `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+
+// document.querySelector(".nav__link").addEventListener("click", function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log("LINK", e.target, e.currentTarget); // the target is the same for all 3 handlers. they are handling the same event
+//   console.log(e.currentTarget === this);
+
+//   // Stop propagation
+//   // e.stopPropagation();
+// });
+
+// // It's as if the click event that happened on the nav link also happened on the parent
+// document.querySelector(".nav__links").addEventListener("click", function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log("CONTAINER", e.target, e.currentTarget);
+// });
+
+// document.querySelector(".nav").addEventListener("click", function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log("NAV", e.target, e.currentTarget);
+// });

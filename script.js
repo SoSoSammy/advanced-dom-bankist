@@ -207,7 +207,7 @@ allSections.forEach(function (section) {
   // Have the observer observe all the sections
   sectionObserver.observe(section);
   // Hide all the sections
-  section.classList.add("section--hidden");
+  // section.classList.add("section--hidden");
 });
 
 ///////////////////////////////////////
@@ -239,6 +239,53 @@ const imgObserver = new IntersectionObserver(loadImg, {
 });
 
 imgTargets.forEach(img => imgObserver.observe(img));
+
+///////////////////////////////////////
+// Slider
+
+const slides = document.querySelectorAll(".slide");
+const btnLeft = document.querySelector(".slider__btn--left");
+const btnRight = document.querySelector(".slider__btn--right");
+
+let curSlide = 0;
+const maxSlide = slides.length;
+
+// const slider = document.querySelector(".slider");
+// slider.style.transform = "scale(0.4) translateX(-800px)";
+// slider.style.overflow = "visible";
+
+const goToSlide = function (slide) {
+  slides.forEach(
+    (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
+  );
+};
+goToSlide(0);
+
+// Next slide
+const nextSlide = function () {
+  // If the current slide is the last slide, then reset the current slide to 0. Otherwise, increase the slide by 1
+  if (curSlide === maxSlide - 1) {
+    curSlide = 0;
+  } else {
+    curSlide++;
+  }
+
+  goToSlide(curSlide);
+};
+
+// Previous slide
+const prevSlide = function () {
+  // If the current slide is the first slide, then reset the current slide to the last slide
+  if (curSlide === 0) {
+    curSlide = maxSlide - 1;
+  } else {
+    curSlide--;
+  }
+  goToSlide(curSlide);
+};
+
+btnRight.addEventListener("click", nextSlide);
+btnLeft.addEventListener("click", prevSlide);
 
 ///////////////////////////////////////
 ///////////////////////////////////////

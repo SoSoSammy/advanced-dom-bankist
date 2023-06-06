@@ -161,7 +161,6 @@ nav.addEventListener("mouseout", handleHover.bind(1));
 
 const header = document.querySelector(".header");
 const navHeight = nav.getBoundingClientRect().height;
-console.log(navHeight);
 
 const stickyNav = function (entries) {
   const [entry] = entries;
@@ -180,6 +179,37 @@ const headerObserver = new IntersectionObserver(stickyNav, {
   rootMargin: `-${navHeight}px`, // a box of a specified height that will be applied outside our target element
 });
 headerObserver.observe(header); // the observer observes the target element
+
+///////////////////////////////////////
+// Reveal sections
+
+const allSections = document.querySelectorAll(".section");
+
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+
+  // To prevent showing the first section when the user hasn't scrolled to it yet
+  if (!entry.isIntersecting) return;
+
+  // Get the specific section that is coming into view and show it
+  entry.target.classList.remove("section--hidden");
+
+  // After the observer has done its work, unobserve the section
+  observer.unobserve(entry.target);
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
+});
+
+allSections.forEach(function (section) {
+  // Have the observer observe all the sections
+  sectionObserver.observe(section);
+  // Hide all the sections
+  section.classList.add("section--hidden");
+});
 
 ///////////////////////////////////////
 ///////////////////////////////////////

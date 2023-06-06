@@ -261,6 +261,17 @@ const goToSlide = function (slide) {
 };
 goToSlide(0);
 
+// Previous slide
+const prevSlide = function () {
+  // If the current slide is the first slide, then reset the current slide to the last slide
+  if (curSlide === 0) {
+    curSlide = maxSlide - 1;
+  } else {
+    curSlide--;
+  }
+  goToSlide(curSlide);
+};
+
 // Next slide
 const nextSlide = function () {
   // If the current slide is the last slide, then reset the current slide to 0. Otherwise, increase the slide by 1
@@ -273,19 +284,16 @@ const nextSlide = function () {
   goToSlide(curSlide);
 };
 
-// Previous slide
-const prevSlide = function () {
-  // If the current slide is the first slide, then reset the current slide to the last slide
-  if (curSlide === 0) {
-    curSlide = maxSlide - 1;
-  } else {
-    curSlide--;
-  }
-  goToSlide(curSlide);
-};
-
-btnRight.addEventListener("click", nextSlide);
 btnLeft.addEventListener("click", prevSlide);
+btnRight.addEventListener("click", nextSlide);
+
+// When the left and right arrow keys are pressed
+document.addEventListener("keydown", function (e) {
+  // Could also do:
+  // if (e.key === "ArrowLeft") prevSlide();
+  e.key === "ArrowLeft" && prevSlide();
+  e.key === "ArrowRight" && nextSlide();
+});
 
 ///////////////////////////////////////
 ///////////////////////////////////////

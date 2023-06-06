@@ -554,3 +554,23 @@ slider();
 // [...h1.parentElement.children].forEach(function (el) {
 //   if (el !== h1) el.style.transform = "scale(0.5)";
 // });
+
+///////////////////////////////////////
+// Lifecycle DOM Events
+
+document.addEventListener("DOMContentLoaded", function (e) {
+  console.log("HTML parsed and DOM tree built!", e);
+});
+
+window.addEventListener("load", function (e) {
+  console.log("Page fully loaded", e);
+});
+
+// Only use in a situation in which data could be lost by accident (such as filling out a form or blog post)
+// window.addEventListener("beforeunload", function (e) {
+//   // Some browsers require e.preventDefault()
+//   e.preventDefault();
+//   console.log(e);
+//   // In order to display a leaving confirmation, we need to set the return value of the event to an empty string (for historical reasons)
+//   e.returnValue = "";
+// });

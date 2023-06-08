@@ -207,7 +207,7 @@ allSections.forEach(function (section) {
   // Have the observer observe all the sections
   sectionObserver.observe(section);
   // Hide all the sections
-  // section.classList.add("section--hidden");
+  section.classList.add("section--hidden");
 });
 
 ///////////////////////////////////////
@@ -558,13 +558,13 @@ slider();
 ///////////////////////////////////////
 // Lifecycle DOM Events
 
-document.addEventListener("DOMContentLoaded", function (e) {
-  console.log("HTML parsed and DOM tree built!", e);
-});
+// document.addEventListener("DOMContentLoaded", function (e) {
+//   console.log("HTML parsed and DOM tree built!", e);
+// });
 
-window.addEventListener("load", function (e) {
-  console.log("Page fully loaded", e);
-});
+// window.addEventListener("load", function (e) {
+//   console.log("Page fully loaded", e);
+// });
 
 // Only use in a situation in which data could be lost by accident (such as filling out a form or blog post)
 // window.addEventListener("beforeunload", function (e) {

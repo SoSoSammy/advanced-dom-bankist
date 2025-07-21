@@ -27,7 +27,7 @@ I implemented the JavaScript functionality for this website by following a tutor
 
 ### Technologies Used
 
-* [![JavaScript][JavaScript-shield]][JavaScript-url]
+[![JavaScript][JavaScript-shield]][JavaScript-url]
 
 [JavaScript-shield]: https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
 [JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
